@@ -182,6 +182,11 @@
   }
 
   function startCelebration() {
+    const video = document.querySelector('.celebration-video');
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(function () {});
+    }
     createConfetti();
     runFireworks();
     createFloatingHearts();

@@ -246,6 +246,18 @@ body {
   position: relative;
   z-index: 2;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.celebration-video {
+  max-width: 280px;
+  max-height: 200px;
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .celebration-heading {
@@ -291,6 +303,11 @@ body {
 
   .proposal-text {
     font-size: 1.25rem;
+  }
+
+  .celebration-video {
+    max-width: 360px;
+    max-height: 260px;
   }
 
   .celebration-heading {
