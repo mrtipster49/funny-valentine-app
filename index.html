@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Will you be my Valentine?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="particles-bg" aria-hidden="true"></div>
+
+  <main id="proposal-screen">
+    <article class="card">
+      <div class="illustration">
+        <div class="tenor-gif-embed" data-postid="8795433616278834350" data-share-method="host" data-aspect-ratio="0.935829" data-width="100%"><a href="https://tenor.com/view/reaction-meme-stan-twt-funny-buckspendragon-minion-gif-8795433616278834350">Reaction Meme Stan Twt GIF</a> from <a href="https://tenor.com/search/reaction+meme-gifs">Reaction Meme GIFs</a></div>
+      </div>
+      <p id="proposal-text" class="proposal-text"></p>
+      <div class="buttons-wrapper">
+        <button type="button" id="btn-yes" class="btn btn-yes">Yes, I will ❤️</button>
+        <div class="no-button-container">
+          <button type="button" id="btn-no" class="btn btn-no">I need a moment</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <section id="celebration-screen" class="celebration-screen" aria-hidden="true">
+    <canvas id="fireworks-canvas" aria-hidden="true"></canvas>
+    <div class="celebration-content">
+      <h1 class="celebration-heading">She said Yes.</h1>
+      <p class="celebration-subtext">And suddenly, February felt warmer.</p>
+      <div id="celebration-hearts" class="celebration-hearts" aria-hidden="true"></div>
+      <button type="button" id="btn-replay" class="btn btn-replay">Play again</button>
+    </div>
+  </section>
+
+  <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+  <script src="particles.js"></script>
+  <script src="celebration.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
