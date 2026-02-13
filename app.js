@@ -20,10 +20,12 @@
   let attemptCount = 0;
   let questionRevealed = false;
   let lastNoAttempt = 0;
+  let hasResponded = false;
+  let noResponseSent = false;
 
   function getUserId() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('id') || 'my_crush';
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+    return path || 'my_crush';
   }
 
   function getTelegramUrl() {
@@ -38,6 +40,20 @@
         body: JSON.stringify(payload)
       }).catch(function () {});
     } catch (e) {}
+  }
+
+  function sendNoResponse() {
+    if (noResponseSent || !questionRevealed || hasResponded) return;
+    noResponseSent = true;
+    const payload = {
+      id: getUserId(),
+      result: 'No response (closed tab)',
+      attempts: attemptCount,
+      timestamp: new Date().toISOString().slice(0, 16).replace('T', ' '),
+      userAgent: navigator.userAgent
+    };
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    navigator.sendBeacon(getTelegramUrl(), blob);
   }
 
   function moveNoButton() {
@@ -98,6 +114,7 @@
 
   function handleYesClick() {
     if (!questionRevealed) return;
+    hasResponded = true;
 
     const id = getUserId();
     const timestamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
@@ -152,6 +169,9 @@
   btnNo.addEventListener('touchstart', handleNoAttempt, { passive: false });
   btnNo.addEventListener('click', handleNoAttempt);
   btnYes.addEventListener('click', handleYesClick);
+
+  window.addEventListener('beforeunload', sendNoResponse);
+  window.addEventListener('pagehide', sendNoResponse);
 
   initProposalText();
 })();

@@ -1,6 +1,6 @@
 # Valentine Crush Web App
 
-A mobile-first Valentine proposal web app. Share with your crush via `?id=theirname` for a personalized link.
+A mobile-first Valentine proposal web app. Share with your crush via a unique sub-path, e.g. `https://your-app.vercel.app/x1asd`.
 
 ## Deploy for Free (Vercel)
 
@@ -43,15 +43,15 @@ To get notified when someone says Yes:
 
 ## Share your link
 
-- Base: `https://your-project.vercel.app`
-- For your crush: `https://your-project.vercel.app?id=ananya`
+- Base (default): `https://your-project.vercel.app`
+- For your crush: `https://your-project.vercel.app/x1asd` (replace `x1asd` with their unique ID)
+
+Each person gets their own path. The ID is taken from the URL path, e.g. `/ananya` or `/crush_123`.
 
 ## Local development
 
-Open `index.html` in a browser, or run:
-
 ```bash
-npx serve .
+npx serve -s .
 ```
 
-Then visit `http://localhost:3000`
+Then visit `http://localhost:3000` or `http://localhost:3000/x1asd` to test with an ID.
