@@ -24,8 +24,8 @@
   let noResponseSent = false;
 
   function getUserId() {
-    const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
-    return path || 'my_crush';
+    const params = new URLSearchParams(window.location.search);
+    return params.get('q') || 'my_crush';
   }
 
   function getTelegramUrl() {
