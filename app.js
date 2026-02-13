@@ -59,17 +59,17 @@
   function moveNoButton() {
     const btn = btnNo;
     const rect = btn.getBoundingClientRect();
-    const margin = 20;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    const margin = 24;
+    const vw = document.documentElement.clientWidth;
+    const vh = document.documentElement.clientHeight;
 
     const minX = margin;
     const minY = margin;
-    const maxX = vw - rect.width - margin;
-    const maxY = vh - rect.height - margin;
+    const maxX = Math.max(minX, vw - rect.width - margin);
+    const maxY = Math.max(minY, vh - rect.height - margin);
 
-    const newX = minX + Math.random() * Math.max(0, maxX - minX);
-    const newY = minY + Math.random() * Math.max(0, maxY - minY);
+    const newX = minX + Math.random() * (maxX - minX);
+    const newY = minY + Math.random() * (maxY - minY);
 
     const dx = newX - rect.left;
     const dy = newY - rect.top;
@@ -86,7 +86,7 @@
   }
 
   function updateYesButton() {
-    const scale = 1 + attemptCount * 0.15;
+    const scale = 1 + attemptCount * 0.22;
     const glow = 4 + attemptCount * 2;
     btnYes.style.transform = 'scale(' + scale + ')';
     btnYes.style.boxShadow = '0 ' + glow + 'px ' + (glow + 12) + 'px rgba(200, 140, 160, 0.5)';
@@ -138,16 +138,34 @@
   }
 
   function showText(text, then) {
-    proposalText.textContent = text;
+    proposalText.innerHTML = '';
     proposalText.style.opacity = '1';
-    if (then) {
-      setTimeout(then, 2000);
-    }
+    proposalText.classList.remove('fade-out');
+
+    var chars = text.split('');
+    chars.forEach(function (char, i) {
+      var span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char;
+      span.style.animationDelay = (i * 0.04) + 's';
+      proposalText.appendChild(span);
+    });
+
+    var charDuration = chars.length * 0.04 + 0.4;
+    var readTime = Math.max(1800, chars.length * 90);
+    var totalBeforeFadeOut = charDuration + readTime;
+
+    setTimeout(function () {
+      proposalText.classList.add('fade-out');
+      setTimeout(function () {
+        if (then) then();
+      }, 500);
+    }, totalBeforeFadeOut);
   }
 
   function initProposalText() {
     proposalText.style.opacity = '0';
-    proposalText.style.transition = 'opacity 0.8s ease';
+    proposalText.style.transition = 'opacity 0.5s ease';
     buttonsWrapper.style.opacity = '0';
     buttonsWrapper.style.pointerEvents = 'none';
 
@@ -155,6 +173,8 @@
       showText(TEXT_2, function () {
         showText(TEXT_3, function () {
           questionRevealed = true;
+          proposalText.innerHTML = TEXT_3;
+          proposalText.classList.remove('fade-out');
           proposalText.style.opacity = '1';
           buttonsWrapper.style.transition = 'opacity 0.6s ease';
           buttonsWrapper.style.opacity = '1';
