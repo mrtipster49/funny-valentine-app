@@ -59,22 +59,20 @@
   function moveNoButton() {
     const btn = btnNo;
     const rect = btn.getBoundingClientRect();
-    const card = document.querySelector('.card');
-    const cardRect = card ? card.getBoundingClientRect() : { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
-    const margin = 12;
+    const margin = 20;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
 
-    const minX = cardRect.left + margin;
-    const minY = cardRect.top + margin;
-    const maxX = cardRect.left + cardRect.width - rect.width - margin;
-    const maxY = cardRect.top + cardRect.height - rect.height - margin;
+    const minX = margin;
+    const minY = margin;
+    const maxX = vw - rect.width - margin;
+    const maxY = vh - rect.height - margin;
 
     const newX = minX + Math.random() * Math.max(0, maxX - minX);
     const newY = minY + Math.random() * Math.max(0, maxY - minY);
 
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const dx = newX - centerX;
-    const dy = newY - centerY;
+    const dx = newX - rect.left;
+    const dy = newY - rect.top;
 
     const rotation = (Math.random() - 0.5) * 24;
     const scale = Math.max(0.85, 1 - attemptCount * 0.02);
@@ -88,7 +86,7 @@
   }
 
   function updateYesButton() {
-    const scale = 1 + attemptCount * 0.08;
+    const scale = 1 + attemptCount * 0.15;
     const glow = 4 + attemptCount * 2;
     btnYes.style.transform = 'scale(' + scale + ')';
     btnYes.style.boxShadow = '0 ' + glow + 'px ' + (glow + 12) + 'px rgba(200, 140, 160, 0.5)';
